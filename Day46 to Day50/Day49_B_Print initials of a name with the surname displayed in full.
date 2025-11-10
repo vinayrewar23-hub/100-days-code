@@ -1,0 +1,43 @@
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+int main() {
+    char name[100];
+    printf("Enter your full name: ");
+    fgets(name, sizeof(name), stdin);
+
+    // Remove trailing newline character
+    size_t len = strlen(name);
+    if (len > 0 && name[len-1] == '\n')
+        name[len-1] = '\0';
+
+    int words_start[20];
+    int word_count = 0;
+    int i = 0;
+
+    // Find the start index of each word
+    if (name[0] != ' ') {
+        words_start[word_count++] = 0;
+    }
+    for (i = 1; name[i] != '\0'; i++) {
+        if (name[i-1] == ' ' && name[i] != ' ')
+            words_start[word_count++] = i;
+    }
+
+    // Print initials of all but the last word
+    printf("Result: ");
+    for (i = 0; i < word_count - 1; i++) {
+        printf("%c", toupper(name[words_start[i]]));
+    }
+
+    // Print the last word (surname) in full
+    printf(" ");
+    int last = words_start[word_count-1];
+    for (i = last; name[i] != ' ' && name[i] != '\0'; i++) {
+        printf("%c", name[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
