@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char date[20];
+    printf("Enter date (dd/04/yyyy): ");
+    fgets(date, sizeof(date), stdin);
+
+    // Remove trailing newline character if present
+    size_t len = strlen(date);
+    if (len > 0 && date[len-1] == '\n')
+        date[len-1] = '\0';
+
+    char dd[3], yyyy[5];
+    // Extract day and year parts
+    strncpy(dd, date, 2);
+    dd[2] = '\0';
+    strncpy(yyyy, date + 6, 4);
+    yyyy[4] = '\0';
+
+    // Print new format
+    printf("New date format: %s-Apr-%s\n", dd, yyyy);
+
+    return 0;
+}
