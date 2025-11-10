@@ -1,0 +1,48 @@
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+int main(void) {
+    char s[1000];
+
+    printf("Enter a sentence: ");
+    if (!fgets(s, sizeof s, stdin)) return 0;
+
+    size_t i = 0, start = 0, curr_len = 0;
+    size_t best_start = 0, best_len = 0;
+
+    for (;;) {
+        int ch = (unsigned char)s[i];
+
+        // Treat end of string as a separator too
+        int is_sep = (ch == '\0') || isspace(ch) || ispunct(ch);
+
+        if (!is_sep) {
+            if (curr_len == 0) start = i;   // starting a new word
+            curr_len++;
+        } else {
+            if (curr_len > 0) {             // just ended a word
+                if (curr_len > best_len) {
+                    best_len = curr_len;
+                    best_start = start;
+                }
+                curr_len = 0;
+            }
+            if (ch == '\0') break;
+        }
+        i++;
+    }
+
+    if (best_len > 0) {
+        char longest[1000];
+        if (best_len >= sizeof longest) best_len = sizeof longest - 1;
+        memcpy(longest, s + best_start, best_len);
+        longest[best_len] = '\0';
+
+        printf("Longest word: \"%s\"\n", longest);
+        printf("Length: %zu\n", best_len);
+    } else {
+        printf("No word found.\n");
+    }
+    return 0;
+}
