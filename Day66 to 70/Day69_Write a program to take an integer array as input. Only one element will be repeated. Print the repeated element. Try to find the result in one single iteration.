@@ -1,0 +1,32 @@
+#include <stdio.h>
+
+int main() {
+int n;
+printf("Enter size of array: ");
+scanf("%d", &n);
+
+```
+int arr[n];
+printf("Enter %d elements (0 to n-1, one repeated):\n", n);
+for (int i = 0; i < n; i++) {
+    scanf("%d", &arr[i]);
+}
+
+int xor_all = 0;
+
+// XOR all array elements
+for (int i = 0; i < n; i++) {
+    xor_all ^= arr[i];
+}
+
+// XOR with numbers from 0 to n-2
+for (int i = 0; i < n - 1; i++) {
+    xor_all ^= i;
+}
+
+printf("Repeated element is: %d\n", xor_all);
+
+return 0;
+```
+
+}
