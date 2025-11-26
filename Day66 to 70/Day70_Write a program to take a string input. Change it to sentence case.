@@ -1,0 +1,45 @@
+#include <stdio.h>
+#include <ctype.h>
+
+int main() {
+FILE *inputFile, *outputFile;
+char ch;
+int newSentence = 1; // Flag to detect start of a new sentence
+
+```
+// Open input file in read mode
+inputFile = fopen("input.txt", "r");
+if (inputFile == NULL) {
+    printf("Error opening input file.\n");
+    return 1;
+}
+
+// Open output file in write mode
+outputFile = fopen("output.txt", "w");
+if (outputFile == NULL) {
+    printf("Error opening output file.\n");
+    fclose(inputFile);
+    return 1;
+}
+
+while ((ch = fgetc(inputFile)) != EOF) {
+    if (newSentence && isalpha(ch)) {
+        fputc(toupper(ch), outputFile); // Capitalize first letter of sentence
+        newSentence = 0;
+    } else {
+        fputc(tolower(ch), outputFile); // Make other letters lowercase
+    }
+
+    if (ch == '.' || ch == '!' || ch == '?') {
+        newSentence = 1; // Next alphabet after punctuation starts a new sentence
+    }
+}
+
+fclose(inputFile);
+fclose(outputFile);
+
+printf("String converted to sentence case and saved to output.txt\n");
+return 0;
+```
+
+}
