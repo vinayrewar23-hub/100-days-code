@@ -1,0 +1,41 @@
+#include <stdio.h>
+#include <string.h>
+
+int longestUniqueSubstrLength(char *s) {
+int lastIndex[256];  // store last index of each character
+for (int i = 0; i < 256; i++)
+lastIndex[i] = -1;
+
+```
+int maxLength = 0;
+int start = 0;  // start of current substring
+
+for (int i = 0; s[i] != '\0'; i++) {
+    char ch = s[i];
+    if (lastIndex[(int)ch] >= start) {
+        start = lastIndex[(int)ch] + 1;  // move start after previous occurrence
+    }
+    lastIndex[(int)ch] = i;
+    int currentLength = i - start + 1;
+    if (currentLength > maxLength)
+        maxLength = currentLength;
+}
+
+return maxLength;
+```
+
+}
+
+int main() {
+char s[1000];
+printf("Enter a string: ");
+scanf("%s", s);
+
+```
+int length = longestUniqueSubstrLength(s);
+printf("Length of longest substring without repeating characters: %d\n", length);
+
+return 0;
+```
+
+}
