@@ -1,0 +1,35 @@
+#include <stdio.h>
+
+enum Month {
+    JAN = 1, FEB, MAR, APR, MAY, JUN,
+    JUL, AUG, SEP, OCT, NOV, DEC
+};
+
+int main() {
+    enum Month m;
+    int days;
+
+    printf("Enter month number (1-12): ");
+    scanf("%d", &m);
+
+    switch(m) {
+        case JAN: days = 31; break;
+        case FEB: days = 28; break; // not checking leap year for simplicity
+        case MAR: days = 31; break;
+        case APR: days = 30; break;
+        case MAY: days = 31; break;
+        case JUN: days = 30; break;
+        case JUL: days = 31; break;
+        case AUG: days = 31; break;
+        case SEP: days = 30; break;
+        case OCT: days = 31; break;
+        case NOV: days = 30; break;
+        case DEC: days = 31; break;
+        default:
+            printf("Invalid month number!\n");
+            return 0;
+    }
+
+    printf("Days in month %d = %d\n", m, days);
+    return 0;
+}
